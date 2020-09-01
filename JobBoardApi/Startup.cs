@@ -26,6 +26,7 @@ namespace JobBoardApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+             
            
         }
 

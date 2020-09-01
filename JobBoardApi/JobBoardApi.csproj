@@ -1,8 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JobBoard.BL\JobBoard.BL.csproj" />
+    <ProjectReference Include="..\JobBoard.EN\JobBoard.EN.csproj" />
+  </ItemGroup>
 
 
 </Project>
