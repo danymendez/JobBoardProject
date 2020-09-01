@@ -7,7 +7,7 @@ using System.Text;
 
 namespace JobBoard.DAL
 {
-    class JobBoardContext : DbContext
+    public class JobBoardContext : DbContext
     {
         public JobBoardContext(string connectionString) : base(GetOptions(connectionString))
         {
@@ -20,6 +20,8 @@ namespace JobBoard.DAL
 
 
         public DbSet<JobEntity> JobEntity { get; set; }
+
+
 
     }
 }

@@ -2,17 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JobBoard.EN.Models;
+using JobBoardWebApp.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace JobBoardWebApp.Controllers
 {
     public class JobEntityController : Controller
     {
-        // GET: JobEntityController
-        public ActionResult Index()
+        private HelperServiceApi helperApi;
+
+        public JobEntityController(IOptions<UriHelpers> configuration)
         {
-            return View();
+        
+            helperApi = new HelperServiceApi(configuration.Value);
+
+        }
+
+        // GET: JobEntityController
+        public async Task<ActionResult> Index()
+        {   var list =await helperApi.GetAll<JobEntity>("JobEntity");
+            return View(list);
         }
 
         // GET: JobEntityController/Details/5

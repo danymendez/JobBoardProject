@@ -26,6 +26,18 @@ namespace JobBoard.BL
         }
 
         /// <summary>
+        /// Update JobEntity in database
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public JobEntity Update(JobEntity entity)
+        {
+            var jobEntity = dal.Update(entity);
+            return jobEntity;
+        }
+
+
+        /// <summary>
         /// Get JobEntity by id
         /// </summary>
         /// <param name="id"></param>

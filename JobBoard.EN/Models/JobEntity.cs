@@ -1,14 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace JobBoard.EN.Models
 {
    public class JobEntity
     {
+       
+        [Key]
         public int JobId { get;set;}
+        [Required]
         public string Job { get; set;}
+        [Required]
         public string JobTitle { get;set;}
+        [Required]
         public string Description { get; set;}
         public DateTime CreatedAt { get;set;}
         public DateTime? ExpiresAt { get; set; }

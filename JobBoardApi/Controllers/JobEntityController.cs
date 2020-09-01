@@ -22,9 +22,10 @@ namespace JobBoardApi.Controllers
 
         // GET: api/<JobEntityController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<JobEntity> Get()
         {  
-            return new string[] { "value1", "value2" };
+           var ListEntity = jobEntityBL.GetAll();
+            return ListEntity;
         }
 
         // GET api/<JobEntityController>/5
@@ -37,20 +38,26 @@ namespace JobBoardApi.Controllers
 
         // POST api/<JobEntityController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public JobEntity Post(JobEntity entity)
         {
+               var InsertedEntity = jobEntityBL.Create(entity);
+            return InsertedEntity;
         }
 
         // PUT api/<JobEntityController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public JobEntity Put(JobEntity entity)
         {
+             var updatedEntity  = jobEntityBL.Update(entity);
+            return updatedEntity;
         }
 
         // DELETE api/<JobEntityController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public JobEntity Delete(int id)
         {
+            var updatedEntity  = jobEntityBL.Delete(id);
+            return updatedEntity;
         }
     }
 }

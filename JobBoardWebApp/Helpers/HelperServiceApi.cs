@@ -38,9 +38,9 @@ namespace JobBoardWebApp.Helpers
             return entity;
         }
 
-        public virtual async Task<List<T>> GetAll<T>(string urlMethod)
+        public virtual async Task<IEnumerable<T>> GetAll<T>(string urlMethod)
         {
-            List<T> lista = new List<T>();
+            IEnumerable<T> lista = new List<T>();
             try
             {
                 HttpClient client = new HttpClient();
@@ -49,7 +49,7 @@ namespace JobBoardWebApp.Helpers
                 HttpResponseMessage response = await client.GetAsync(uri + urlMethod);
 
                 if (response.IsSuccessStatusCode)
-                    lista = await response.Content.ReadAsAsync<List<T>>();
+                    lista = await response.Content.ReadAsAsync<IEnumerable<T>>();
 
             }
             catch (Exception ex)

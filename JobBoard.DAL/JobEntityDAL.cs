@@ -1,6 +1,7 @@
 ﻿using JobBoard.EN.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace JobBoard.DAL
@@ -26,6 +27,23 @@ namespace JobBoard.DAL
             return entity;
         }
 
+         /// <summary>
+        /// Update JobEntity in database
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public JobEntity Update(JobEntity entity)
+        {
+            var entityToModified = dbcontext.JobEntity.First(c=>c.JobId==entity.JobId); 
+            entityToModified.Job = entity.Job;
+            entityToModified.JobTitle = entity.JobTitle;
+            entityToModified.Description = entity.Description;
+            entityToModified.CreatedAt=entity.CreatedAt;
+            entityToModified.ExpiresAt = entity.ExpiresAt;
+            dbcontext.SaveChanges();
+            return entity;
+        }
+
         /// <summary>
         /// Get JobEntity by id
         /// </summary>
@@ -33,7 +51,7 @@ namespace JobBoard.DAL
         /// <returns></returns>
         public JobEntity Get(int id)
         {
-            var entity = dbcontext.JobEntity.Find(id);
+            var entity = dbcontext.JobEntity.First(c=>c.JobId==id)??new JobEntity();
             return entity;
 
         }
@@ -56,9 +74,11 @@ namespace JobBoard.DAL
         public JobEntity Delete(int id)
         {
             JobEntity jobEntity = Get(id);
+            if(jobEntity.JobId!=0){
             dbcontext.JobEntity.Attach(jobEntity);
             dbcontext.JobEntity.Remove(jobEntity);
             dbcontext.SaveChanges();
+            }
             return jobEntity;
         }
     }
