@@ -24,7 +24,7 @@ namespace JobBoardWebApp.Controllers
 
         // GET: JobEntityController
         public async Task<ActionResult> Index()
-        {   var list =await helperApi.GetAll<JobEntity>("UrlJobEntity");
+        {   var list =await helperApi.GetAll<JobEntity>(UrlJobEntity);
             return View(list);
         }
 

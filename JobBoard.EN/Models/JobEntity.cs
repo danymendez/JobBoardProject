@@ -10,6 +10,7 @@ namespace JobBoard.EN.Models
     {
        
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int JobId { get;set;}
         [Required]
         [MaxLength(50)]

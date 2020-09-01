@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobBoardApi.Migrations
 {
     [DbContext(typeof(JobBoardContext))]
-    [Migration("20200901185518_JobBoardMigration")]
+    [Migration("20200901202346_JobBoardMigration")]
     partial class JobBoardMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,8 +33,8 @@ namespace JobBoardApi.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(1000)")
-                        .HasMaxLength(1000);
+                        .HasColumnType("nvarchar(250)")
+                        .HasMaxLength(250);
 
                     b.Property<DateTime?>("ExpiresAt")
                         .HasColumnType("datetime2");
