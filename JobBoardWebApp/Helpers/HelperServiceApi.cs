@@ -17,7 +17,7 @@ namespace JobBoardWebApp.Helpers
             BASEURL = uriHelpers.BaseUrl;
         }
 
-        public virtual async Task<T> Get<T>(string urlMethod, decimal? id)
+        public virtual async Task<T> Get<T>(string urlMethod, int? id)
         {
             T entity = default(T);
             try
@@ -105,7 +105,7 @@ namespace JobBoardWebApp.Helpers
             return clase;
         }
 
-        public virtual async Task<bool> Put<T>(string Method, decimal? id, T clase)
+        public virtual async Task<bool> Put<T>(string Method, T clase)
         {
             bool isSuccess = false;
             try
@@ -113,7 +113,7 @@ namespace JobBoardWebApp.Helpers
                 HttpClient client = new HttpClient();
                 string uri = BASEURL;
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = await client.PutAsJsonAsync(uri + Method + id, clase);
+                HttpResponseMessage response = await client.PutAsJsonAsync(uri + Method, clase);
 
                 isSuccess = response.IsSuccessStatusCode;
 
@@ -125,7 +125,7 @@ namespace JobBoardWebApp.Helpers
             return isSuccess;
         }
 
-        public virtual async Task<T> Delete<T>(string urlMethod, decimal? id)
+        public virtual async Task<T> Delete<T>(string urlMethod, int? id)
         {
             try
             {

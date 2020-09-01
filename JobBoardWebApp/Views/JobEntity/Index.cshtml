@@ -12,9 +12,7 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.JobId)
-            </th>
+           
             <th>
                 @Html.DisplayNameFor(model => model.Job)
             </th>
@@ -36,9 +34,7 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.JobId)
-            </td>
+          
             <td>
                 @Html.DisplayFor(modelItem => item.Job)
             </td>
@@ -55,9 +51,9 @@
                 @Html.DisplayFor(modelItem => item.ExpiresAt)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Edit", "Edit", new { id = item.JobId }) |
+                @Html.ActionLink("Details", "Details", new {  id=item.JobId  }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.JobId })
             </td>
         </tr>
 }

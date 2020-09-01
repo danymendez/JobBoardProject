@@ -28,9 +28,10 @@ namespace JobBoardWebApp.Controllers
         }
 
         // GET: JobEntityController/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            return View();
+            var entity =await helperApi.Get<JobEntity>($"JobEntity/",id);
+            return View(entity);
         }
 
         // GET: JobEntityController/Create
@@ -42,10 +43,15 @@ namespace JobBoardWebApp.Controllers
         // POST: JobEntityController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(JobEntity jobEntity)
         {
             try
             {
+               var entity = await helperApi.Post("JobEntity",jobEntity );
+               
+                if (entity.JobId == 0) {
+                    return BadRequest();
+                }
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -55,18 +61,20 @@ namespace JobBoardWebApp.Controllers
         }
 
         // GET: JobEntityController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+             var entity =await helperApi.Get<JobEntity>($"JobEntity/",id);
+            return View(entity);
         }
 
         // POST: JobEntityController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(JobEntity jobEntity)
         {
             try
             {
+                var entity = await helperApi.Put("JobEntity", jobEntity);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -76,18 +84,21 @@ namespace JobBoardWebApp.Controllers
         }
 
         // GET: JobEntityController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            return View();
+            var entity =await helperApi.Get<JobEntity>($"JobEntity/",id);
+            return View(entity);
+           
         }
 
         // POST: JobEntityController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(int id, IFormCollection collection)
         {
             try
             {
+                 var entity =await helperApi.Delete<JobEntity>($"JobEntity/",id);
                 return RedirectToAction(nameof(Index));
             }
             catch
