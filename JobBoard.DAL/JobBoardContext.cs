@@ -13,6 +13,12 @@ namespace JobBoard.DAL
         {
         }
 
+        public JobBoardContext(DbContextOptions<JobBoardContext> options)  
+            :base(options)  
+        {  
+            Database.EnsureCreated();  
+        }  
+
         private static DbContextOptions GetOptions(string connectionString)
         {
             return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder(), connectionString).Options;

@@ -13,6 +13,7 @@ namespace JobBoardWebApp.Controllers
     public class JobEntityController : Controller
     {
         private HelperServiceApi helperApi;
+        private string UrlJobEntity = "JobEntity";
 
         public JobEntityController(IOptions<UriHelpers> configuration)
         {
@@ -23,14 +24,14 @@ namespace JobBoardWebApp.Controllers
 
         // GET: JobEntityController
         public async Task<ActionResult> Index()
-        {   var list =await helperApi.GetAll<JobEntity>("JobEntity");
+        {   var list =await helperApi.GetAll<JobEntity>("UrlJobEntity");
             return View(list);
         }
 
         // GET: JobEntityController/Details/5
         public async Task<ActionResult> Details(int id)
         {
-            var entity =await helperApi.Get<JobEntity>($"JobEntity/",id);
+            var entity =await helperApi.Get<JobEntity>($"{UrlJobEntity}/",id);
             return View(entity);
         }
 
@@ -47,7 +48,7 @@ namespace JobBoardWebApp.Controllers
         {
             try
             {
-               var entity = await helperApi.Post("JobEntity",jobEntity );
+               var entity = await helperApi.Post(UrlJobEntity,jobEntity );
                
                 if (entity.JobId == 0) {
                     return BadRequest();
@@ -63,7 +64,7 @@ namespace JobBoardWebApp.Controllers
         // GET: JobEntityController/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-             var entity =await helperApi.Get<JobEntity>($"JobEntity/",id);
+             var entity =await helperApi.Get<JobEntity>($"{UrlJobEntity}/",id);
             return View(entity);
         }
 
@@ -74,7 +75,7 @@ namespace JobBoardWebApp.Controllers
         {
             try
             {
-                var entity = await helperApi.Put("JobEntity", jobEntity);
+                var entity = await helperApi.Put(UrlJobEntity, jobEntity);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -86,7 +87,7 @@ namespace JobBoardWebApp.Controllers
         // GET: JobEntityController/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            var entity =await helperApi.Get<JobEntity>($"JobEntity/",id);
+            var entity =await helperApi.Get<JobEntity>($"{UrlJobEntity}/",id);
             return View(entity);
            
         }
@@ -98,7 +99,7 @@ namespace JobBoardWebApp.Controllers
         {
             try
             {
-                 var entity =await helperApi.Delete<JobEntity>($"JobEntity/",id);
+                 var entity =await helperApi.Delete<JobEntity>($"{UrlJobEntity}/",id);
                 return RedirectToAction(nameof(Index));
             }
             catch
