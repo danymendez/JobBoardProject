@@ -16,21 +16,8 @@ namespace JobBoardApi
     {
         public static void Main(string[] args)
         {
-          var host=  CreateHostBuilder(args).Build();
-            using (var scope = host.Services.CreateScope())  
-            {  
-                try  
-                {  
-                    var context = scope.ServiceProvider.GetService<JobBoardContext>();  
-                    context.Database.EnsureDeleted();  
-                    context.Database.Migrate();  
-                }  
-                catch (Exception)  
-                {  
-                    throw;  
-                }  
-            }  
-            host.Run(); 
+         CreateHostBuilder(args).Build();
+           
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

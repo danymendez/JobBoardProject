@@ -13,6 +13,8 @@ using Microsoft.Extensions.Logging;
 using JobBoard.DAL;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace JobBoardApi
 {
@@ -28,10 +30,10 @@ namespace JobBoardApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<JobBoardContext>(o=>  
-            {  
-                o.UseSqlServer(Configuration["connectionStrings:JobBoardConn"], c=>c.MigrationsAssembly("JobBoardApi"));  
-            });  
+            services.AddDbContext<JobBoardContext>(o =>
+            {
+                o.UseSqlServer(Configuration["connectionStrings:JobBoardConn"], c => c.MigrationsAssembly("JobBoardApi"));
+            });
             services.AddControllers();
             services.AddSwaggerGen(c =>
     {
@@ -45,6 +47,7 @@ namespace JobBoardApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            UpdateDatabase(app);
             app.UseSwagger();
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
             // specifying the Swagger JSON endpoint.
@@ -68,6 +71,20 @@ namespace JobBoardApi
             {
                 endpoints.MapControllers();
             });
+        }
+
+        private static void UpdateDatabase(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices
+                .GetRequiredService<IServiceScopeFactory>()
+                .CreateScope())
+            {
+                using (var context = serviceScope.ServiceProvider.GetService<JobBoardContext>())
+                {
+                    if(!(context.Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator).Exists())
+                    context.Database.Migrate();
+                }
+            }
         }
     }
 }
